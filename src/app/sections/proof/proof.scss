@@ -1,0 +1,156 @@
+.proof { background: var(--bg-2); border-block: 1px solid var(--line); }
+
+.head-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  .section-head { margin-bottom: 0; }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+
+  button {
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    transition: background 0.2s, color 0.2s;
+    &:hover { color: var(--text); }
+    &.on { background: var(--accent); color: var(--bg); font-weight: 600; }
+  }
+}
+
+// Desktop: 12 tracks, 3 cards per row; a short last row is centred via --start (set in proof.ts)
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  align-items: start;
+
+  .card { grid-column: var(--start, auto) / span 4; align-self: stretch; }
+  .card.wide { grid-column: var(--start, auto) / span 8; }
+}
+
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .grid .card { grid-column: auto; }
+  .grid .card.wide, .grid .card.strip { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  .grid .card.wide, .grid .card.strip { grid-column: auto; }
+}
+
+.card {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--bg);
+  overflow: hidden;
+  animation: card-in 0.5s var(--ease) both;
+  transition: transform 0.35s var(--ease), border-color 0.35s;
+
+  &:hover, &:focus-visible {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    img { transform: scale(1.04); filter: none; }
+    .shot::after { opacity: 0; }
+    .zoom { opacity: 1; transform: none; }
+  }
+
+}
+
+.shot {
+  position: relative;
+  aspect-ratio: 16 / 8;
+  background: var(--surface);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+
+  // Classic look: muted warm monochrome at rest; full colour returns on hover (CSS only, files stay unedited)
+  display: grid;
+  place-items: center;
+  padding: 14px;
+
+  // Show the whole screenshot (many are very wide strips), never crop or zoom
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    filter: grayscale(1) sepia(0.25) brightness(0.62) contrast(1.15);
+    transition: transform 0.6s var(--ease), filter 0.5s var(--ease);
+  }
+
+  // Soft vignette that blends the screenshot into the dark card
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(14, 13, 12, 0.55), transparent 55%);
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease);
+  }
+}
+
+.wide .shot { aspect-ratio: 21 / 9; }
+
+// Strip cards: image area follows the thin screenshot's own shape; compact text below
+.strip {
+  .shot {
+    aspect-ratio: auto;
+    display: block;
+    padding: 14px;
+    img { height: auto; }
+  }
+  .meta { padding: 14px 18px 18px; gap: 4px; }
+  .meta .hl { font-size: 22px; }
+}
+
+.zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 18px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s, transform 0.3s var(--ease);
+}
+
+.meta {
+  display: grid;
+  gap: 5px;
+  padding: 16px 20px 20px;
+
+  .cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .hl { font-family: var(--font-display); font-size: 26px; font-weight: 800; letter-spacing: -0.03em; color: var(--accent); line-height: 1.1; }
+  strong { font-size: 16px; font-weight: 600; }
+  p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+}
+
+@keyframes card-in { from { opacity: 0; transform: translateY(16px); } }
+
+@media (max-width: 640px) {
+  .wide .shot { aspect-ratio: 16 / 9; }
+}

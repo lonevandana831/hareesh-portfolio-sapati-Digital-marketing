@@ -1,0 +1,102 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+  border-bottom: 1px solid transparent;
+
+  &.menu-open { background: var(--bg); border-bottom-color: var(--line); }
+
+  &.scrolled:not(.menu-open) {
+    background: rgba(14, 13, 12, 0.78);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--line);
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  a:not(.btn) {
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s, background 0.2s;
+    &:hover { color: var(--text); }
+    &.active { color: var(--text); background: var(--surface-2); }
+  }
+}
+
+.cv { margin-left: 10px; padding: 10px 18px; font-size: 15px; }
+
+.menu {
+  display: none;
+  font-size: 26px;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 880px) {
+  .menu { display: grid; }
+  .name { display: none; }
+
+  .links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100svh - 72px);
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 16px clamp(16px, 4vw, 32px) 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s var(--ease);
+
+    &.open { opacity: 1; transform: none; pointer-events: auto; }
+    a:not(.btn) { font-size: 20px; padding: 12px 8px; }
+    .cv { margin: 12px 0 0; justify-content: center; }
+  }
+}

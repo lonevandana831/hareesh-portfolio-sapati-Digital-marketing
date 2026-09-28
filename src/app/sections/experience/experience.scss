@@ -1,0 +1,49 @@
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.role {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: clamp(20px, 4vw, 56px);
+  padding-block: clamp(32px, 5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+
+.when {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  .period { font-family: var(--font-mono); font-size: 15px; color: var(--text); }
+  .loc { font-size: 14px; color: var(--faint); }
+}
+
+.what {
+  h3 { font-size: clamp(26px, 3.2vw, 38px); font-weight: 700; }
+  .company { font-size: 18px; color: var(--accent); font-weight: 600; margin-top: 6px; }
+  .intro { color: var(--text); font-size: 18px; margin-top: 18px; }
+
+  ul { display: grid; gap: 12px; margin-top: 20px; }
+  li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--muted);
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 8px;
+      height: 2px;
+      background: var(--accent);
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  .role { grid-template-columns: 1fr; }
+  .when { grid-auto-flow: column; justify-content: start; gap: 14px; }
+}

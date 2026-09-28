@@ -1,0 +1,29 @@
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Experience</span>
+      <h2>Where I've done the <em>work</em>.</h2>
+    </div>
+
+    <ol class="timeline">
+      @for (r of roles; track r.company) {
+        <li class="role" appReveal>
+          <div class="when">
+            <span class="period">{{ r.period }}</span>
+            <span class="loc">{{ r.location }}</span>
+          </div>
+          <div class="what">
+            <h3>{{ r.title }}</h3>
+            <p class="company">{{ r.company }}</p>
+            <p class="intro">{{ r.intro }}</p>
+            <ul>
+              @for (pt of r.points; track $index) {
+                <li>{{ pt }}</li>
+              }
+            </ul>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

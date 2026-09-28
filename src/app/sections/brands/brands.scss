@@ -1,0 +1,79 @@
+.brands {
+  padding-block: 56px 72px;
+  background: var(--bg-2);
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo-marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  &:hover .logos { animation-play-state: paused; }
+}
+
+.logos {
+  display: flex;
+  width: max-content;
+  // ~3.5s per logo keeps the same pace however many logos there are
+  animation: marquee calc(var(--count, 7) * 3.5s) linear infinite;
+
+  li {
+    flex: none;
+    width: clamp(180px, 22vw, 260px);
+    margin-right: 14px;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-sm);
+    background: #fbf8f3;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    opacity: 0.92;
+    transition: opacity 0.4s, transform 0.4s var(--ease);
+    &:hover { opacity: 1; transform: translateY(-3px); }
+    &.dark { background: #030617; }
+  }
+
+  // Source logos have lots of empty padding; zoom in to fill the tile.
+  li { position: relative; }
+  img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transform: scale(var(--scale, 1.4)); }
+}
+
+.marquee {
+  margin-top: 40px;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+
+  span {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--faint);
+    padding-inline: 20px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+    &::after { content: '✦'; font-size: 0.5em; color: var(--accent); }
+  }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@media (max-width: 720px) {
+  .logos li { width: 160px; }
+}

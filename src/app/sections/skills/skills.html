@@ -1,0 +1,38 @@
+<section class="section skills" id="skills">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Skills &amp; tools</span>
+      <h2>The full-funnel <em>toolkit</em>.</h2>
+      <p>From the first scroll-stopping Reel to the final performance report.</p>
+    </div>
+
+    <div class="groups">
+      @for (g of groups; track g.title) {
+        <div class="group" appReveal [revealDelay]="$index * 80">
+          <span class="icon"><app-icon [name]="g.icon" /></span>
+          <h3>{{ g.title }}</h3>
+          <ul>
+            @for (s of g.skills; track s) { <li class="chip">{{ s }}</li> }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div class="bottom">
+      <div class="tools" appReveal>
+        <h3>Tools I use daily</h3>
+        <ul>
+          @for (t of tools; track t) { <li>{{ t }}</li> }
+        </ul>
+      </div>
+
+      <div class="edu" appReveal [revealDelay]="120">
+        <span class="icon"><app-icon name="cap" /></span>
+        <span class="label">Education</span>
+        <h3>{{ education.degree }}</h3>
+        <p>{{ education.school }}</p>
+        <p class="meta">{{ education.year }} · GPA {{ education.gpa }}</p>
+      </div>
+    </div>
+  </div>
+</section>

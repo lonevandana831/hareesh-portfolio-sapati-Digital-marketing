@@ -1,0 +1,78 @@
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <span class="eyebrow">Selected work</span>
+      <h2>Campaigns that moved the <em>numbers</em>.</h2>
+      <p>A few client stories covering the goal, what I did and what it delivered. Where you see "View proof", the numbers come straight from Meta Ads Manager.</p>
+    </div>
+
+    <div class="cases">
+      @for (c of cases; track c.client; let i = $index) {
+        <article class="case" appReveal>
+          <div class="case-top">
+            <span class="index">{{ (i + 1).toString().padStart(2, '0') }}</span>
+            <span class="chip">{{ c.industry }}</span>
+          </div>
+
+          <div class="case-body">
+            <div class="headline">
+              <span class="big">{{ c.headline.prefix }}<span [appCountUp]="c.headline.value" [focus]="true" [duration]="1600"></span>{{ c.headline.suffix }}</span>
+              <span class="big-label">{{ c.headline.label }}</span>
+            </div>
+
+            <div class="detail">
+              <h3>{{ c.client }}</h3>
+              <p class="summary">{{ c.summary }}</p>
+              <ul class="approach">
+                @for (a of c.approach; track a) {
+                  <li><app-icon name="check" /> {{ a }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div class="case-foot">
+            <dl class="metrics">
+              @for (m of c.metrics; track m.label) {
+                <div><dt>{{ m.label }}</dt><dd [appCountUp]="m.value" [focus]="true" [duration]="1400"></dd></div>
+              }
+            </dl>
+            <div class="foot-right">
+              <div class="channels">
+                @for (ch of c.channels; track ch) { <span class="chip">{{ ch }}</span> }
+              </div>
+              @if (c.proofId) {
+                <button type="button" class="btn btn-ghost proof-btn" (click)="lightbox.openById(c.proofId)">
+                  View proof <app-icon name="expand" />
+                </button>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+
+    <!-- Branding: each panel slowly scrolls through a client's post grid; hover pauses, click opens it -->
+    <div class="branding">
+      <div class="branding-head" appReveal>
+        <span class="eyebrow">Branding</span>
+        <h3>Feeds I've <em>designed &amp; managed</em>.</h3>
+        <p>Content systems for client Instagram pages. Hover to pause, click to see the full grid.</p>
+      </div>
+
+      <div class="feeds">
+        @for (b of branding; track b.brand; let i = $index) {
+          <button type="button" class="feed" appReveal [revealDelay]="i * 90" (click)="openBrand(i)" [attr.aria-label]="'Open ' + b.brand + ' feed'">
+            <div class="screen">
+              <img [src]="b.image" [alt]="b.brand + ' Instagram feed'" loading="lazy" [class.rev]="i % 2 === 1" [style.animation-delay.s]="-i * 6" />
+            </div>
+            <div class="feed-meta">
+              <strong>{{ b.brand }}</strong>
+              <span>{{ b.industry }}</span>
+            </div>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>

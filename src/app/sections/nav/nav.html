@@ -1,0 +1,21 @@
+<header class="nav" [class.scrolled]="scrolled()" [class.menu-open]="open()">
+  <div class="container bar">
+    <a href="#top" class="brand" (click)="close()" aria-label="Back to top">
+      <span class="mark">HS</span>
+      <span class="name">{{ profile.name }}</span>
+    </a>
+
+    <nav class="links" [class.open]="open()" aria-label="Primary">
+      @for (link of links; track link.id) {
+        <a [href]="'#' + link.id" [class.active]="active() === link.id" (click)="close()">{{ link.label }}</a>
+      }
+      <a class="btn btn-primary cv" [href]="profile.resume" download>
+        Download CV <app-icon name="download" />
+      </a>
+    </nav>
+
+    <button class="menu" type="button" (click)="toggle()" [attr.aria-expanded]="open()" aria-label="Toggle menu">
+      <app-icon [name]="open() ? 'close' : 'menu'" />
+    </button>
+  </div>
+</header>

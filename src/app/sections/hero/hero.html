@@ -1,0 +1,97 @@
+<section class="hero" id="top">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="container grid">
+    <div class="copy">
+      <p class="status"><span class="dot"></span> Open to full-time roles · {{ profile.location }}</p>
+
+      <!-- Letters are animated from hero.ts. &ngsp; = a real space; Angular strips plain whitespace between tags -->
+      <h1 aria-label="I turn ad spend into conversations, leads & customers." [class.is-pending]="pending()">
+        <span class="w g-a">@for (c of t.I; track $index) {<span class="c">{{ c }}</span>}</span>&ngsp;
+        <span class="w g-a">@for (c of t.turn; track $index) {<span class="c">{{ c }}</span>}</span>&ngsp;
+        <span class="spend g-spend">
+          <span class="w">@for (c of t.ad; track $index) {<span class="c">{{ c }}</span>}</span>&ngsp;
+          <span class="w">@for (c of t.spend; track $index) {<span class="c">{{ c }}</span>}</span>
+          <svg class="squiggle" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M3 9 C 40 3, 75 13, 112 7 S 172 4, 197 8" pathLength="1" />
+          </svg>
+        </span>&ngsp;
+        <span class="w g-b">@for (c of t.into; track $index) {<span class="c">{{ c }}</span>}</span>&ngsp;
+        <span class="w"
+          ><span class="wipe hl"><span class="bar" aria-hidden="true"></span>@for (c of t.conv; track $index) {<span class="c">{{ c }}</span>}</span
+          ><span class="c comma">,</span></span
+        >&ngsp;
+        <span class="w g-leads">@for (c of t.leads; track $index) {<span class="c">{{ c }}</span>}</span>&ngsp;
+        <span class="w"><span class="c amp">&amp;</span></span>&ngsp;
+        <span class="w g-d">@for (c of t.cust; track $index) {<span class="c">{{ c }}</span>}</span>
+      </h1>
+
+      <p class="lede">
+        I’m <strong>{{ profile.name }}</strong>, a results-driven {{ profile.role }} with 3+ years of experience in
+        content marketing, social media, digital strategy, Meta Ads, and Google Ads. With experience across 20+
+        industries, I blend creativity, audience insights, and data-driven strategies to build stronger brands, drive
+        engagement, generate leads, and accelerate digital growth.
+      </p>
+
+      <div class="ctas">
+        <a href="#proof" class="btn btn-primary">See my results <app-icon name="arrow" /></a>
+        <a href="#contact" class="btn btn-ghost">Let's talk</a>
+      </div>
+
+      <dl class="stats">
+        @for (s of stats; track s.label) {
+          <div>
+            <dt>{{ s.label }}</dt>
+            <dd>{{ s.prefix }}<span [appCountUp]="s.value"></span>{{ s.suffix }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+
+    <aside class="dash" aria-label="Campaign performance snapshot">
+      <div class="dash-head">
+        <span class="live"><span class="dot"></span> {{ dashboard.label }}</span>
+        <span class="tag">Meta Ads</span>
+      </div>
+
+      <div class="dash-big" aria-live="polite">
+        @if (activeBar(); as b) {
+          <span class="k">Leads · {{ b.label }}</span>
+          <span class="v">{{ b.value.toLocaleString('en-IN') }}</span>
+          <span class="delta">{{ (b.value / barTotal * 100).toFixed(1) }}% of all leads</span>
+        } @else {
+          <span class="k">Leads generated</span>
+          <span class="v"><span [appCountUp]="5000"></span>+</span>
+          <span class="delta">High performing campaigns</span>
+        }
+      </div>
+
+      <div class="bars" [class.has-active]="active() !== null" (pointerleave)="$event.pointerType === 'mouse' && active.set(null)">
+        @for (b of dashboard.bars; track b.label; let i = $index, first = $first, last = $last) {
+          <button
+            type="button"
+            class="bar"
+            [class.on]="active() === i"
+            [class.first]="first"
+            [class.last]="last"
+            [style.height.%]="(b.value / barMax) * 100"
+            [style.animation-delay.ms]="300 + i * 70"
+            [attr.aria-label]="b.label + ': ' + b.value + ' leads'"
+            (pointerenter)="active.set(i)"
+            (focus)="active.set(i)"
+            (blur)="active.set(null)"
+          >
+            <span class="tip" aria-hidden="true">{{ b.label }} <strong>{{ b.value.toLocaleString('en-IN') }}</strong></span>
+          </button>
+        }
+      </div>
+
+      <ul class="rows">
+        @for (r of dashboard.rows; track r.name) {
+          <li><span>{{ r.name }}</span><strong>{{ r.value }}</strong></li>
+        }
+      </ul>
+    </aside>
+  </div>
+
+  <a href="#impact" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+</section>

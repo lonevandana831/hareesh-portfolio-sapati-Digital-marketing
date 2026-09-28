@@ -1,0 +1,192 @@
+.cases { display: grid; gap: 20px; }
+
+.case {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--bg-2);
+  padding: clamp(24px, 4vw, 44px);
+  transition: border-color 0.4s;
+  &:hover { border-color: var(--line-strong); }
+}
+
+.case-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .index { font-family: var(--font-mono); color: var(--faint); font-size: 14px; }
+}
+
+.case-body {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(24px, 5vw, 64px);
+  margin-top: 28px;
+}
+
+.headline {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+
+  .big {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 11vw, 148px);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    color: var(--accent);
+  }
+  .big-label { font-size: clamp(18px, 2vw, 22px); color: var(--text); }
+}
+
+.detail {
+  h3 { font-size: clamp(26px, 3vw, 36px); font-weight: 700; margin-bottom: 14px; }
+  .summary { color: var(--muted); }
+}
+
+.approach {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+
+  li { display: flex; gap: 12px; font-size: 16px; }
+  app-icon {
+    flex: none;
+    align-self: flex-start;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3px;
+    font-size: 13px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+}
+
+.case-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-top: 36px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px clamp(24px, 4vw, 48px);
+  margin: 0;
+
+  div { display: flex; flex-direction: column-reverse; gap: 2px; }
+  dd { margin: 0; font-family: var(--font-display); font-size: 26px; font-weight: 700; }
+  dt { font-size: 13px; color: var(--faint); }
+}
+
+.foot-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.channels { display: flex; flex-wrap: wrap; gap: 8px; }
+.proof-btn { padding: 10px 18px; font-size: 15px; }
+
+@media (max-width: 820px) {
+  .case-body { grid-template-columns: 1fr; }
+}
+
+// ---- Branding feeds ----
+.branding { margin-top: clamp(72px, 10vw, 120px); }
+
+.branding-head {
+  display: grid;
+  gap: 14px;
+  max-width: 640px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+  h3 { font-size: clamp(30px, 4vw, 48px); font-weight: 700; text-wrap: balance; }
+  h3 em { font-style: normal; color: var(--accent); }
+  p { color: var(--muted); }
+}
+
+.feeds {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.feed {
+  --h: clamp(380px, 36vw, 520px);
+  display: grid;
+  gap: 14px;
+  text-align: left;
+
+  &:hover .screen, &:focus-visible .screen { border-color: var(--accent); transform: translateY(-4px); }
+  &:hover img { animation-play-state: paused; }
+}
+
+.screen {
+  position: relative;
+  height: var(--h);
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: border-color 0.3s, transform 0.4s var(--ease);
+
+  // Soft fade at top and bottom so the scrolling grid feels like a window
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--bg-2), transparent 10%, transparent 90%, var(--bg-2));
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  // Source grids differ slightly in width (943–1000px); force one shape so every feed renders identically
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 943 / 1754;
+    object-fit: cover;
+    animation: feed-scroll 36s ease-in-out infinite alternate;
+    &.rev { animation-direction: alternate-reverse; }
+  }
+}
+
+.feed-meta {
+  display: grid;
+  gap: 2px;
+  strong { font-family: var(--font-display); font-size: 18px; font-weight: 700; }
+  span { font-size: 13px; color: var(--faint); }
+}
+
+// Scroll the tall grid from top to bottom of its own height
+@keyframes feed-scroll { to { transform: translateY(calc(-100% + var(--h))); } }
+
+@media (max-width: 1000px) {
+  .feeds { grid-template-columns: 1fr 1fr; }
+}
+
+// Phones: swipeable row
+@media (max-width: 560px) {
+  .feeds {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+  }
+  .feed { --h: 420px; scroll-snap-align: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen img { animation: none; }
+}

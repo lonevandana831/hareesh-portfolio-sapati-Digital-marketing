@@ -1,0 +1,42 @@
+<section class="section" id="impact">
+  <div class="container">
+    <div class="about">
+      <div class="section-head" appReveal>
+        <span class="eyebrow">About me</span>
+        <h2>Creative roots. <em>Performance</em> mindset.</h2>
+      </div>
+      <div class="about-copy">
+        <p class="lead" appReveal [attr.aria-label]="leadLabel">
+          @for (w of leadWords; track $index) {
+            <span class="wd" [style.--i]="$index" aria-hidden="true"
+              ><span [class.hl]="w.hl">{{ w.text }}</span>{{ w.tail }}</span
+            >{{ ' ' }}
+          }
+        </p>
+        <p class="body" appReveal [revealDelay]="500">{{ profile.about.body }}</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      @for (s of stats; track s.label) {
+        <div class="stat" appReveal [revealDelay]="$index * 90">
+          <span class="num">{{ s.prefix }}<span [appCountUp]="s.value"></span>{{ s.suffix }}</span>
+          <span class="label">{{ s.label }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="process">
+      <h3 appReveal>How I run a campaign</h3>
+      <ol>
+        @for (s of steps; track s.step) {
+          <li appReveal [revealDelay]="$index * 70">
+            <span class="step">{{ s.step }}</span>
+            <strong>{{ s.title }}</strong>
+            <p>{{ s.text }}</p>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>

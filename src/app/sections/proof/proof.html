@@ -1,0 +1,44 @@
+<section class="section proof" id="proof">
+  <div class="container">
+    <div class="head-row">
+      <div class="section-head" appReveal>
+        <span class="eyebrow">Proof of work</span>
+        <h2>Straight from <em>Ads Manager</em>.</h2>
+        <p>Unedited screenshots from live campaigns I built and managed. Click any card to inspect the numbers.</p>
+      </div>
+
+      <div class="filters" aria-label="Filter results" appReveal>
+        @for (f of filters; track f) {
+          <button type="button" [class.on]="filter() === f" [attr.aria-pressed]="filter() === f" (click)="filter.set(f)">
+            {{ f }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="grid">
+      @for (p of visible(); track p.id; let i = $index) {
+        <button
+          type="button"
+          class="card"
+          [class.wide]="p.layout === 'wide'"
+          [class.strip]="p.layout === 'strip'"
+          [style.--start]="centreStart()?.index === i ? centreStart()!.col : null"
+          (click)="open(i)"
+          [attr.aria-label]="'Enlarge: ' + p.title"
+        >
+          <div class="shot">
+            <img [src]="p.image" [alt]="p.title" loading="lazy" />
+            <span class="zoom"><app-icon name="expand" /></span>
+          </div>
+          <div class="meta">
+            <span class="cat">{{ p.category }}</span>
+            <span class="hl">{{ p.highlight }}</span>
+            <strong>{{ p.title }}</strong>
+            <p>{{ p.caption }}</p>
+          </div>
+        </button>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+<section class="brands" aria-labelledby="brands-title">
+  <div class="container">
+    <p class="title" id="brands-title">Brands I've worked with</p>
+  </div>
+
+  <!-- Logos slide continuously; the list is rendered twice so the loop is seamless -->
+  <div class="logo-marquee">
+    <ul class="logos" [style.--count]="brands.length">
+      @for (copy of [0, 1]; track copy) {
+        @for (b of brands; track b.name) {
+          <li [class.dark]="b.dark" [title]="b.name" [attr.aria-hidden]="copy === 1 ? 'true' : null">
+            <img [src]="b.logo" [alt]="copy === 0 ? b.name + ' logo' : ''" [style.--scale]="b.scale" loading="lazy" />
+          </li>
+        }
+      }
+    </ul>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      @for (n of names; track $index) {
+        <span>{{ n }}</span>
+      }
+    </div>
+  </div>
+</section>
