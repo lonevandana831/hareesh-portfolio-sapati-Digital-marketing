@@ -50,7 +50,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/hareesh-kumar1/',
   resume: 'files/Hareesh_Sapati_Resume.pdf',
   summary:
-    'Results-driven digital marketer with 3+ years of experience in performance marketing, social media, content strategy and brand growth across 20+ industries. I plan, launch and optimise Meta and Google Ads campaigns that bring in real enquiries, not just impressions.',
+    'Results-driven digital marketer with 2+ years of experience in performance marketing, social media, content strategy and brand growth across 20+ industries. I plan, launch and optimise Meta and Google Ads campaigns that bring in real enquiries, not just impressions.',
   // About section. First line animates word by word; wrap a word in *asterisks* to highlight it.
   about: {
     lead: 'I started behind the *camera*, shooting, scripting and editing short-form content for brands and films.',
@@ -65,7 +65,7 @@ export const heroStats: Stat[] = [
 ];
 
 export const impactStats: Stat[] = [
-  { value: 3, suffix: '+', label: 'Years in digital marketing' },
+  { value: 2, suffix: '+', label: 'Years in digital marketing' },
   { value:20, suffix: '+', label: 'Industries served' },
   { value: 10,suffix: '+',  label: 'Client accounts at a time' },
   { value: 1, prefix: '₹', suffix: 'L', label: 'Monthly ad budget handled' },
@@ -323,20 +323,6 @@ export const experience: Role[] = [
       'Ran audience, competitor, keyword and market research to sharpen targeting and support data-driven decisions.',
       'Managed Google Business Profile, Local SEO, YouTube SEO, Google Analytics and Search Console, with regular client reports and insights.',
       'Coordinated designers, video editors, clients and team members to deliver campaigns on time.',
-    ],
-  },
-  {
-    title: 'Content Creator & Digital Marketing Executive',
-    company: 'Dim Light Creations',
-    location: 'Hyderabad',
-    period: 'May 2022 – Jan 2024',
-    intro: 'Content strategy, branding and video production for brands, freelance clients and short films.',
-    points: [
-      'Developed content strategies and creative concepts for brands across Education, Home Décor, Food & Hospitality, Lifestyle and Entertainment.',
-      'Planned weekly and monthly content calendars covering ideation, campaign themes, scheduling, publishing and community communication.',
-      'Led branding work: positioning, creative direction, visual identity and social media strategy.',
-      'Scripted, planned shoots, produced and edited short-form videos, reels, teasers and campaign creatives.',
-      'Worked as a videographer on short films, covering visual planning, camera work, framing and promotional campaigns.',
     ],
   },
 ];
